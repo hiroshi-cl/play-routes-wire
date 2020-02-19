@@ -1,0 +1,101 @@
+.*
+
+# sbt specific
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+/public/**/*
+!/public/images/.gitkeep
+
+# Scala-IDE specific
+.scala_dependencies
+
+tmp
+tmp/
+project/project
+project/target
+.history
+logFile*
+logs*
+.idea
+/*.iml
+/out
+.idea_modules
+/.classpath
+/RUNNING_PID
+/.settings
+.DS_Store
+thumbs.db
+
+flyway.properties
+modules/*/target
+
+# ruby
+.bundle/
+/vendor
+
+# conf
+conf/*.conf
+conf/env/generated/*.yml
+conf/*.yml
+
+build/*/conf/*.xml
+build/*/conf/messages*
+build/*/conf/*.conf
+build/*/conf/*.yml
+build/*/conf/certs
+!/build/*/conf/application.conf
+
+# logger
+logger.xml
+
+# assets
+zipped-assets
+assets-hash
+temp/
+assetsCombination.xml
+
+# TypeScript/JavaScript
+*.js.map
+
+### https://raw.github.com/github/gitignore/098aee26a1c69b0bf9e5723ee6db9589d21e74b0/Node.gitignore
+
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+
+npm-debug.log
+node_modules
+
+# ConvertTemplate
+TemplateReport.txt
+ViewReport.txt
+
+# local output
+stdout
+dump.rdb
+
+# sed
+*-e
+
+# support tools
+/support_target
+
+# deploy
+/deploy_target
+
+# scalastyle
+scalastyle-config.xml
+!/conf/scalastyle-config.xml
