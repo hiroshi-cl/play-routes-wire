@@ -1,6 +1,6 @@
 # play-routes-wire
 
-This is an ad-hoc macro project for [Play Framework](https://www.playframework.com/) with [MacWire](https://softwaremill.com/open-source/).
+This is an ad-hoc and tiny macro project for [Play Framework](https://www.playframework.com/) with [MacWire](https://softwaremill.com/open-source/).
 This macro automatically `wire`s all controllers for given generated routes classes.
 
 ## Motivation
@@ -20,7 +20,6 @@ class GreetingApplicationLoader extends ApplicationLoader {
 
 class GreetingComponents(context: Context) extends BuiltInComponentsFromContext(context)
   with ServicesModule
-  //  with GreetingModule
   with AssetsComponents
   with I18nComponents
   with play.filters.HttpFiltersComponents {
@@ -36,6 +35,7 @@ class GreetingComponents(context: Context) extends BuiltInComponentsFromContext(
 If you use Guice, what you have to do is only to insert `@Inject()` as below:
 
 ```
+// ↓ Only this!
 @Inject() class GreeterController(greetingService: GreetingService,
                                   langs: Langs,
                                   cc: ControllerComponents) extends AbstractController(cc)
@@ -62,3 +62,6 @@ class GreetingComponents(context: Context) extends BuiltInComponentsFromContext(
   lazy val router: Router = Macro.wireRoutes[Routes](httpErrorHandler, "/")
 }
 ```
+
+- Supporting Play versions: 2.6.x, 2.7.x, 2.8.x
+- Supporting MacWire versions: 2.3.x
