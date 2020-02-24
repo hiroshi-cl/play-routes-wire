@@ -1,4 +1,4 @@
-package routeswire
+package com.github.hiroshi_cl.routeswire
 
 import play.api.http.HttpErrorHandler
 import play.api.mvc.ControllerHelpers
@@ -13,6 +13,7 @@ class Macro(val c: blackbox.Context) {
 
   /**
    * Routerの引数をwireする
+   *
    * @note debug出力やエラーが見やすいように無駄にA-正規形で出力している
    */
   private def wireRouterArgs(routerType: Type, errorHandler: Tree, prefix: Tree): Seq[Tree] = {
@@ -43,6 +44,14 @@ class Macro(val c: blackbox.Context) {
 }
 
 object Macro {
+  /**
+   * A macro which automatically `wire`s all controllers for given generated routes classes.
+   *
+   * @param errorHandler error handler
+   * @param prefix path prefix (normally `"/"`)
+   * @tparam R a subclass of GeneratedRouter, which is generated from .routes file by Play sbt plugin.
+   * @return A block which returns a generated router instance.
+   */
   // IntelliJは相変わらずmacro bundleをサポートしていないので赤くなる
   def wireRoutes[R <: GeneratedRouter](errorHandler: HttpErrorHandler, prefix: String): R = macro Macro.wireRoutesImpl[R]
 }

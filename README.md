@@ -1,9 +1,64 @@
-# play-scala-macwire-di-example
+# play-routes-wire
 
-This is an example project for setting up Play with Macwire compile time dependency injection.
+This is an ad-hoc macro project for [Play Framework](https://www.playframework.com/) with [MacWire](https://softwaremill.com/open-source/).
+This macro automatically `wire`s all controllers for given generated routes classes.
 
-For further details, please see:
+## Motivation
 
-* <https://www.playframework.com/documentation/latest/ScalaCompileTimeDependencyInjection>
-* <https://github.com/adamw/macwire/blob/master/README.md>
-* <https://di-in-scala.github.io/>
+If you use MacWire, you have to write as below:
+
+```
+// define controller
+class GreeterController(greetingService: GreetingService,
+                                  langs: Langs,
+                                  cc: ControllerComponents) extends AbstractController(cc)
+
+// define an application loader and a component
+class GreetingApplicationLoader extends ApplicationLoader {
+  def load(context: Context): Application = new GreetingComponents(context).application
+}
+
+class GreetingComponents(context: Context) extends BuiltInComponentsFromContext(context)
+  with ServicesModule
+  //  with GreetingModule
+  with AssetsComponents
+  with I18nComponents
+  with play.filters.HttpFiltersComponents {
+
+  // wire *all* controllers
+  lazy val greeterController = wire[GreeterController]
+
+  // wire a router
+  lazy val router: Router = new Routes(httpErrorHandler, greeterController, assets)
+}
+```
+
+If you use Guice, what you have to do is only to insert `@Inject()` as below:
+
+```
+@Inject() class GreeterController(greetingService: GreetingService,
+                                  langs: Langs,
+                                  cc: ControllerComponents) extends AbstractController(cc)
+```
+
+It is unreasonable! Can you think the case your project has hundreds of controllers?
+
+This macro helps to wire all controllers.
+
+## Usage
+
+- Make sure that all controllers are subclass of `ControllerHelpers`.
+- Make sure that all depending services are found in the scope.
+
+Write as below:
+
+```
+class GreetingComponents(context: Context) extends BuiltInComponentsFromContext(context)
+  with ServicesModule
+  with AssetsComponents
+  with I18nComponents
+  with play.filters.HttpFiltersComponents {
+
+  lazy val router: Router = Macro.wireRoutes[Routes](httpErrorHandler, "/")
+}
+```

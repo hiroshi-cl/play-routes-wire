@@ -12,6 +12,7 @@ ThisBuild / scalacOptions ++= Seq(
 )
 
 lazy val macros = (project in file("modules/macros")).settings(
+  name := "play-wire-routes",
   libraryDependencies ++= Seq(
     "com.softwaremill.macwire" %% "macros" % "2.3.2" % "provided",
     "org.scala-lang" % "scala-reflect" % scalaVersion.value,
@@ -21,6 +22,7 @@ lazy val macros = (project in file("modules/macros")).settings(
   scalacOptions += "-Xfatal-warnings"
 )
 
+// This test came from https://github.com/playframework/play-samples/tree/2.8.x/play-scala-macwire-di-example
 lazy val tests = (project in file("modules/tests"))
   .enablePlugins(PlayScala)
   .settings(

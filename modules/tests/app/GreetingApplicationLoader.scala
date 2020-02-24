@@ -1,5 +1,6 @@
 
 import _root_.controllers.AssetsComponents
+import com.github.hiroshi_cl.routeswire.Macro
 import play.api.ApplicationLoader.Context
 import play.api._
 import play.api.i18n._
@@ -26,5 +27,5 @@ class GreetingComponents(context: Context) extends BuiltInComponentsFromContext(
     _.configure(context.environment, context.initialConfiguration, Map.empty)
   }
 
-  lazy val router: Router = routeswire.Macro.wireRoutes[Routes](httpErrorHandler, "/")
+  lazy val router: Router = Macro.wireRoutes[Routes](httpErrorHandler, "/")
 }
