@@ -13,6 +13,21 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Cache SBT ivy cache
+      uses: actions/cache@v1
+      with:
+        path: ~/.ivy2/cache
+        key: ${{ runner.os }}-sbt-ivy-cache-${{ hashFiles('**/*.sbt') }}
+    - name: Cache Coursier cache
+     uses: actions/cache@v1
+     with:
+       path: ~/.coursier/cache
+       key: ${{ runner.os }}-sbt-coursier-cache-${{ hashFiles('**/*.sbt') }}
+    - name: Cache SBT
+      uses: actions/cache@v1
+      with:
+        path: ~/.sbt
+        key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.properties') }}
     - name: Run tests
       run: |
         sbt -Dplay.version=2.8.1 +test
