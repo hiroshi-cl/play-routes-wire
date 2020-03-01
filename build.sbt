@@ -1,11 +1,11 @@
 import scala.util.Try
 
-ThisBuild / version := "0.1.0-SNAPSHOT"
-
 val playVersion = play.core.PlayVersion.current
 val scala211 = "2.11.12"
 val scala212 = "2.12.10"
 val scala213 = "2.13.1"
+
+ThisBuild / version := s"$playVersion-0.1.0-SNAPSHOT"
 
 ThisBuild / scalaVersion := (playVersion.split('.').toSeq match {
   case "2" +: "6" +: _ => scala212
@@ -35,7 +35,7 @@ lazy val macros = (project in file("modules/macros")).settings(
     "com.softwaremill.macwire" %% "macros" % "2.3.3" % "provided",
     "org.scala-lang" % "scala-reflect" % scalaVersion.value,
     "org.scala-lang" % "scala-compiler" % scalaVersion.value,
-    "com.typesafe.play" %% "play" % play.core.PlayVersion.current
+    "com.typesafe.play" %% "play" % playVersion
   ),
   scalacOptions += "-Xfatal-warnings",
   publish / skip := false
