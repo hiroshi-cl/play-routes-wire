@@ -47,6 +47,12 @@ This macro helps to wire all controllers.
 
 ## Usage
 
+Add following code to your build.sbt:
+
+```
+libraryDependencies += "com.github.hiroshi-cl" %% "play-routes-wire" % "2.8.1-0.1.0"
+```
+
 - Make sure that all controllers are subclass of `ControllerHelpers`.
 - Make sure that all depending services are found in the scope.
 
