@@ -5,7 +5,7 @@ val scala211 = "2.11.12"
 val scala212 = "2.12.10"
 val scala213 = "2.13.1"
 
-ThisBuild / version := s"$playVersion-0.1.0-SNAPSHOT"
+ThisBuild / version := s"$playVersion-0.1.0"
 
 ThisBuild / scalaVersion := (playVersion.split('.').toSeq match {
   case "2" +: "6" +: _ => scala212
